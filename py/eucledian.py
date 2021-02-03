@@ -104,7 +104,9 @@ def cosine(data):
     print("Cosine similarity: ",cosine)
     
     #cosine of 0  = 1 (Unit circle)
-    
+
+#tanimoto similarity   
+#(A.B) / (||A||^2 + ||B||^2 - A.B)
 def tanimoto(data):
     index1 = 0
     index2 = 2
