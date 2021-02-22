@@ -70,7 +70,7 @@ def sortkey(item):
 
 #data_table --> matrix vector -> data point/vector/object(row), k --> int 
 #returns a list of indicies ranking the nearest neighboors from smallest to largest
-def k_nearest(data_table, vector, k):
+def k_nearest(data, vector, k):
     #we have to make sure we compute the distane of each of these rows. 
     #in this case len of this list will be len(data_table)
     #make sure you also track the row numbers [r,d]
@@ -102,6 +102,8 @@ def k_nearest(data_table, vector, k):
 
 def euclid(v1, v2):
     eucl = np.sqrt(sum((v1-v2)**2))
+    
+    print("Eucledian: ", eucl)
     return eucl
 
 def manhatten(v1,v2):
@@ -124,11 +126,11 @@ def jaccard(v1,v2):
         
         #[9] --> [9,3] --> [9,3,3] --> [9,3,3,4]
         minimums.append(min(v1[i], v2[i]))
-    print(minimums)
+    #print(minimums)
     
     for i in range(0, len(v1)):
         maximums.append(max(v1[i], v2[i]))
-    print(maximums)
+    #print(maximums)
     
     J = sum(minimums) / sum(maximums)
     
@@ -137,7 +139,6 @@ def jaccard(v1,v2):
 
 #Cosine Similarity
 def cosine(v1, v2):
-    
     
     
     #dot product
@@ -176,6 +177,7 @@ def tanimoto(v1,v2):
     return tani
     
 if __name__ == '__main__':
+    '''
     data = np.array([[10,3,3,5,10],
                      [5,4,5,3,6],
                      [10,4,6,4,9],
@@ -218,12 +220,68 @@ if __name__ == '__main__':
     
     v2 = data2[2]
     
+    '''
+    
+    
+    '''
     euclid(v1,v2)
     manhatten(v1,v2)
     jaccard(v1,v2)
     cosine(v1,v2)
     tanimoto(v1,v2)
+    '''
     
+    
+    
+    '''
+    HOMEWORK 1
+    '''
+    df=pd.read_csv('data-Homework1.csv')
+    
+    #Question 1:
+    '''
+    Jaccard similarity between Rows 0 and 1 is 0.7523955174360798.
+    What is the Jaccard similarity between Rows 5 and 75? 
+    Your answer must be correct up to four digits after the decimal point. 
+    No exponent notations are allowed in the answer. 
+    '''
+    data_set = df.values
+    #print(data_set)
+    
+    
+    
+    jaccard(data_set[5],data_set[75]) #0.7113930622201977
+    
+    
+    #knearest neighboor -> row 65 [[65 62 27 97 86]]
+    #row 75 -> [[75 57 52 93 62]]
+    given = data_set[75] 
+    k=5
+    #------------------------Using sklearn---------------------------------
+    #n_neighbors => k algorithm --> data structure .fit Returns an object k nearest neighboors
+    knbr = NearestNeighbors(n_neighbors= k, algorithm = 'ball_tree').fit(data_set)
+    #auto , kd_tree, ball tree
+     
+    distance , indicies = knbr.kneighbors([given])
+    print("Using Sk learn: ")
+    print("Indicies: ", indicies)
+    print("distances: ", distance)
+    
+    
+    cosine(data_set[5], data_set[100]) #0.9136906342448988
+    
+    tanimoto(data_set[5], data_set[75])#0.9229486033454978
+    
+    euclid(data_set[5], data_set[100])#3.554169691976415
+    
+    
+    
+    
+    
+    
+    
+    
+    #print(0.9823746957909885 == 0.9823746957909885)
     
     #read_file()
     
