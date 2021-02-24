@@ -12,9 +12,36 @@ import numpy as np
 from sklearn.cluster import KMeans
 
 #silhouette
-
-
 from sklearn.metrics import silhouette_score
+
+#Agglomerative
+from sklearn.cluster import AgglomerativeClustering
+
+
+#plotting dendogram
+from matplotlib import pyplot as plt
+from scipy.cluster.hierarchy import dendrogram
+
+def plot_dendrogram(model, **kwargs):
+    # Create linkage matrix and then plot the dendrogram
+
+    # create the counts of samples under each node
+    counts = np.zeros(model.children_.shape[0])
+    n_samples = len(model.labels_)
+    for i, merge in enumerate(model.children_):
+        current_count = 0
+        for child_idx in merge:
+            if child_idx < n_samples:
+                current_count += 1  # leaf node
+            else:
+                current_count += counts[child_idx - n_samples]
+        counts[i] = current_count
+
+    linkage_matrix = np.column_stack([model.children_, model.distances_,
+                                      counts]).astype(float)
+
+    # Plot the corresponding dendrogram
+    dendrogram(linkage_matrix, **kwargs)
 
 def randIndex(knowns, result):
     tp = 0
@@ -138,10 +165,35 @@ print("Average Silhouette Coefficient: ", asc)
 #asc = 0 --> no structure
 #asc > 0 --> some level of stuctures (We consider the clusters to be more structured)
 
+#Hiearachal Clustering Algorithm----Agglomerative Clustering
+agg = AgglomerativeClustering(n_clusters=3).fit(data)
+
+print("Agglomerative Cluserting lables: ")
+print(agg.labels_)
+
+'''
+#rand index with kmeans result and agglomerative result
+print("Rand index between kmeans and agg: ", randIndex(km.labels_, agg.labels_))
+'''
+
+asc_agg = silhouette_score(data, labels = agg.labels_)
+print("Average Silhouette Coefficient(agg): ", asc_agg)
+
+#Draws the dandogram provided the model
+
+aggH = AgglomerativeClustering(distance_threshold=0, n_clusters=None).fit(data)
+
+plot_dendrogram(aggH, truncate_mode='level', p=3)
+
+plt.xlabel("Points...")
+plt.show()
 
 
-
-
+'''
+you can make the plots show in separate windows
+ by changing it in the 
+ tools -> preferences -> IPython Console -> Graphics -> Graphics backend
+'''
 
 
 
