@@ -6,7 +6,7 @@ This is a temporary script file.
 """
 import numpy as np
 
-#Aaron
+#Aaron Zambrano 2/26/2021
 
 '''
 #We cannot do vector operations with just python lists.  
