@@ -22,6 +22,9 @@ from sklearn.cluster import AgglomerativeClustering
 from matplotlib import pyplot as plt
 from scipy.cluster.hierarchy import dendrogram
 
+#DBSCAN Density Based Clustering of Applications with Noise
+from sklearn.cluster import DBSCAN
+
 def plot_dendrogram(model, **kwargs):
     # Create linkage matrix and then plot the dendrogram
 
@@ -188,6 +191,10 @@ plot_dendrogram(aggH, truncate_mode='level', p=3)
 plt.xlabel("Points...")
 plt.show()
 
+#DBSCAN
+clustering = DBSCAN(eps= 1, min_samples= 10).fit(data)
+print("DBSCAN result:")
+print(clustering.labels_)
 
 '''
 you can make the plots show in separate windows
