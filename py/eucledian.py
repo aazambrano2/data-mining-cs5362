@@ -56,13 +56,13 @@ def manhatten(data):
     manh = sum(abs(data[index1] - data[index2]))
     print("Manhattan:", manh)
     
-    
+#Jaccard Simiilarity  
 def jaccard(data):
     
     index1 = 0
     index2 = 2
     
-    #Jaccard Simiilarity
+    
     minimums = []
     maximums = []
     
