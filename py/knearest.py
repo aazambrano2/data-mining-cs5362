@@ -246,7 +246,7 @@ if __name__ == '__main__':
     No exponent notations are allowed in the answer. 
     '''
     data_set = df.values
-    #print(data_set)
+    print(data_set)
     
     
     
