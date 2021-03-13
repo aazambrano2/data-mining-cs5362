@@ -4,7 +4,8 @@ Created on Mon Mar  8 13:24:56 2021
 
 @author: Aaron
 """
-
+#pandas 
+import pandas as pd
 #Evaluation algorithms
 import numpy as np
 #scikit-learn
@@ -113,39 +114,174 @@ def purity(assignment, known):
 
 if __name__ == "__main__":
     
-    print(randIndex([3,1,3,2,1],[1,3,3,2,1]))
+    #print(randIndex([3,1,3,2,1],[1,3,3,2,1]))
     
-    '''
-    read files
-    df=pd.read_csv('assignment2_data.csv')
-    '''
-    
+    #2 cluseters for the practice data
     #6 clusters according to assignment_labels.csv file
-    print()
+    #Test data confirmed to be correct
+    '''
+    practice_data = pd.read_csv('lab2_practice_data.csv', header = None)
     
-    #Rand Index
+    test_data = practice_data.values
+    
+    #print(test_data)
+    
+    practice_labels = pd.read_csv('lab2_practice_labels.csv', header=None)
+    
+    test_labels = practice_labels.values[:,0] #knows for practice data
+    
+    km = KMeans(n_clusters=2).fit(test_data)
+    agg = AgglomerativeClustering(n_clusters=2).fit(test_data)
+    clustering = DBSCAN(eps= 0.3, min_samples= 10).fit(test_data)
+    
+    #print(clustering.labels_)
+    
+    #---Rand Index
+    print("Rand Index ")
     
     #Kmeans
+    print('Kmeans Rand Index: ',randIndex(test_labels, km.labels_))
     
     #Agg
+    print('Agglomerative Rand Index: ',randIndex(test_labels, agg.labels_))
     
     #DBSCAN
+
+    print('DBSCAN Rand Index: ',randIndex(test_labels, clustering.labels_))
     
-    #Purity
+    print("-----------------------------")
+    
+    #---Purity
+    print("Purity")
     
     #Kmeans
+    print('Kmeans Purity: ',purity(km.labels_, test_labels))
     
     #Agg
+    print('Agglomerative Purity: ',purity(agg.labels_, test_labels))
     
     #DBSCAN
+    print('Kmeans Purity: ',purity(clustering.labels_, test_labels))
+    print("-----------------------------")
     
-    #Silhouette
+    #---Silhouette
+    print("Silhouette")
     
     #Kmeans
+    print('Kmeans Silhouette: ',silhouette_score(test_data, labels = km.labels_) )
     
     #Agg
+    print('Agglomerative Silhouette: ',silhouette_score(test_data, labels = agg.labels_))
+    
+    #DBSCAN (last two digits different)
+    print('DBSCAN Silhouette: ', silhouette_score(test_data, labels = clustering.labels_))
+    '''
+    
+    print('\nASSIGNMENT 2\n')
+    
+    #--------------------------------------------------------------------------
+    assignment_data = pd.read_csv('assignment2_data.csv', header = None)
+    
+    test_data = assignment_data.values
+    
+    #print(test_data)
+    
+    assignment_labels = pd.read_csv('assignment2_labels.csv', header=None)
+    
+    test_labels = assignment_labels.values[:,0] #knows for practice data
+    
+    km = KMeans(n_clusters=6).fit(test_data)
+    '''
+    maximum = 0
+    ri = 0
+    for i in range(100):
+        km = KMeans(n_clusters=6).fit(test_data)
+        ri= randIndex(test_labels, km.labels_)
+        print(ri)
+        if ri > maximum:
+            maximum = ri
+    print(ri)
+    '''
+    
+    '''
+    maximum = 0
+    p = 0
+    
+
+    for i in range(1000):
+        km = KMeans(n_clusters=6).fit(test_data)
+        p= purity(km.labels_,test_labels)
+        #print(p)
+        if p > maximum:
+            maximum = p
+    print('Purity Maximum: ',maximum)
+    '''
+    
+    '''
+    maximum = 0
+    asc = 0
+    
+
+    for i in range(1000):
+        km = KMeans(n_clusters=6).fit(test_data)
+        asc= silhouette_score(test_data, labels = km.labels_)
+        #print(p)
+        if asc > maximum:
+            maximum = asc
+    print('ASC Maximum: ',maximum)
+    '''
+    
+    
+    
+    agg = AgglomerativeClustering(n_clusters=6).fit(test_data)
+    clustering = DBSCAN(eps= 0.3, min_samples= 10).fit(test_data)
+    
+    #print(clustering.labels_)
+    
+    #---Rand Index
+    print("Rand Index ")
+    
+    #Kmeans
+    print('Kmeans Rand Index: ',randIndex(test_labels, km.labels_))
+    
+    #Agg
+    print('Agglomerative Rand Index: ',randIndex(test_labels, agg.labels_))
     
     #DBSCAN
+
+    print('DBSCAN Rand Index: ',randIndex(test_labels, clustering.labels_))
+    
+    print("-----------------------------")
+    
+    #---Purity
+    print("Purity")
+    
+    #Kmeans
+    print('Kmeans Purity: ',purity(km.labels_, test_labels))
+    
+    #Agg
+    print('Agglomerative Purity: ',purity(agg.labels_, test_labels))
+    
+    #DBSCAN
+    print('DBSCAN Purity: ',purity(clustering.labels_, test_labels))
+    print("-----------------------------")
+    
+    #---Silhouette
+    print("Silhouette")
+    
+    #Kmeans
+    print('Kmeans Silhouette: ',silhouette_score(test_data, labels = km.labels_) )
+    
+    #Agg
+    print('Agglomerative Silhouette: ',silhouette_score(test_data, labels = agg.labels_))
+    
+    #DBSCAN (last two digits different)
+    print('DBSCAN Silhouette: ', silhouette_score(test_data, labels = clustering.labels_))
+    
+    
+    
+    
+    
     
     
     
