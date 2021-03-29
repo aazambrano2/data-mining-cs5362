@@ -276,7 +276,8 @@ if __name__ == '__main__':
     
     
     
-    
+    #tanimoto(np.array([5,9,3,4,3]), np.array([2,1,7,2,4]))
+    #cosine(np.array([10,12,15,19]), np.array([-10,-12,-15,-19]))
     
     
     

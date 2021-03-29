@@ -196,6 +196,8 @@ clustering = DBSCAN(eps= 1, min_samples= 10).fit(data)
 print("DBSCAN result:")
 print(clustering.labels_)
 
+print(purity([0,1,0,0,1,1,1], [1,2,1,1,2,2,2]))
+
 '''
 you can make the plots show in separate windows
  by changing it in the 
