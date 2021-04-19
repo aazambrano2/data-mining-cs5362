@@ -13,6 +13,9 @@ from numpy import array
 A = [[1, 1, 0 ],
      [1, 0, 1 ],
      [0, 1, 0]]
+#algorithm will fail if a website does not have a self outlink (a column is just 0's)
+#The algorithm will think there is actually 2 nodes, not 3 
+#This is called a deadlock / dead ends
 
 #spidercrab
 '''
@@ -41,12 +44,15 @@ r = (1+np.zeros([len(M),1])) / len(M)
 # Code
 #5 or 6 zeros are good enough
 threshold = 0.0000001
+beta = 0.8
 rPrev = r
+
+uniformD = (1.0-beta)*r
 
 #loop
 
 for i in range(0,1000):
-    r = np.matmul(M,rPrev)
+    r = beta * np.matmul(M,rPrev) + uniformD
     print("Iteration: ",i)
     print("Rank vector: \n",r)
     
@@ -63,5 +69,6 @@ print("Final rank vector: \n", r)
 ####################################
 
 #with random teleportation
+
 
 
