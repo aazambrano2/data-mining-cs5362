@@ -9,10 +9,11 @@ import numpy as np
 from numpy import array
 
 #Yahoo, Amazon, Microsoft
-
+'''
 A = [[1, 1, 0 ],
      [1, 0, 1 ],
      [0, 1, 0]]
+'''
 #algorithm will fail if a website does not have a self outlink (a column is just 0's)
 #The algorithm will think there is actually 2 nodes, not 3 
 #This is called a deadlock / dead ends
@@ -23,7 +24,21 @@ A = [[1, 1, 0 ],
      [1, 0, 0 ],
      [0, 1, 1]]
 '''
+#q1
 
+A = [[1,0,0,0],
+     [0,1,0,0],
+     [0,0,1,0],
+     [0,0,0,1]]
+
+#q5
+'''
+A = [[0,0,0,0,1,],
+     [0,1,1,1,1],
+     [0,1,0,1,0],
+     [0,0,1,0,0],
+     [0,0,1,0,1]]
+'''
 
 arr = array(A,dtype = float)
 
@@ -44,7 +59,7 @@ r = (1+np.zeros([len(M),1])) / len(M)
 # Code
 #5 or 6 zeros are good enough
 threshold = 0.0000001
-beta = 0.8
+beta = 0.4
 rPrev = r
 
 uniformD = (1.0-beta)*r
@@ -53,17 +68,19 @@ uniformD = (1.0-beta)*r
 
 for i in range(0,1000):
     r = beta * np.matmul(M,rPrev) + uniformD
-    print("Iteration: ",i)
-    print("Rank vector: \n",r)
+    #print("Iteration: ",i)
+    #print("Rank vector: \n",r)
     
     #convergence:
     diff = sum(abs(r - rPrev))[0]
-    print(diff)
+    #print(diff)
     if diff < threshold:
         break
     
     rPrev = r
 print("Final rank vector: \n", r)
+#print('beta: ',beta)
+#print('max',max(r))
 
 
 ####################################
