@@ -148,8 +148,8 @@ knowns3 = [3] *15
 
 knowns = knowns1+ knowns2 + knowns3
 
-print("The rand index is: ")
-ri = randIndex(knowns, km.labels_)
+print("FINAL: The rand index is: ")
+ri = randIndex([1,2,1,2,2,3], [2,1,2,1,1,3])
 print(ri)
 
 

@@ -11,7 +11,7 @@ def myObj(x):
     y = (x[0] + 2*x[1] - 7)**2 + (2*x[0] + x[1]-5)**2
     return y
 
-x0 = [0.1,5.4] 
+x0 = [1,3] #[x,y,z] x[0] =>x  x[1] => y  x[2] => z 
 xopt = optimize.fmin(myObj, x0)
 
 print("Where the minimum was found: ", xopt)
